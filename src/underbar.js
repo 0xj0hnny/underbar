@@ -8,6 +8,7 @@ var _ = {};
   // seem very useful, but remember it--if a function needs to provide an
   // iterator when the user does not pass one in, this will be handy.
   _.identity = function(val) {
+    return val; 
   };
 
   /**
@@ -201,26 +202,28 @@ var _ = {};
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+    iterator = iterator || _.identity();
     return _.reduce(collection, function(prev, current){
       if(iterator == undefined){
-        return !!(prev) && current; 
+        return Boolean(!!(prev) && current); 
       }
       else{
-        return !!(prev) && iterator(current); 
+        return Boolean(!!(prev) && iterator(current));
       }
-     }, true);
+    }, true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    iterator = iterator || _.identity();
     return _.reduce(collection, function(prev, current){
       if(iterator == undefined){
-        return !!(prev) || current; 
+        return Boolean(!!(prev) || current); 
       }
       else{
-        return !!(prev) || iterator(current); 
+        return Boolean(!!(prev) || iterator(current)); 
       }
     });
 

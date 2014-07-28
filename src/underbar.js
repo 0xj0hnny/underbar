@@ -217,7 +217,7 @@ var _ = {};
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
-    
+
     return !(_.every(collection,function(n){
       return !iterator(n);
     }));
@@ -304,7 +304,13 @@ var _ = {};
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
-
+    var cache = {}; 
+    return function(){
+      var parm = Array.prototype.slice.call(arguments);
+      
+      (parm in cache) ?  cache[parm] : (cache[parm] = func.apply(this,parm));
+      return cache[parm];
+    }
   };
 
   // Delays a function for the given number of milliseconds, and then calls

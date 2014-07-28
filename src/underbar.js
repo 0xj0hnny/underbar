@@ -217,15 +217,10 @@ var _ = {};
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
-    iterator = iterator || _.identity();
-    return _.reduce(collection, function(prev, current){
-      if(iterator == undefined){
-        return Boolean(!!(prev) || current); 
-      }
-      else{
-        return Boolean(!!(prev) || iterator(current)); 
-      }
-    });
+    
+    return !(_.every(collection,function(n){
+      return !iterator(n);
+    }));
 
   };
 
